@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import type {UserRegister} from "../../utils/types";
+import type {UserLogin, UserRegister} from "../../utils/types";
 import {base_url, createToken} from "../../utils/constants.ts";
 
 export const registerUser = createAsyncThunk(
@@ -23,8 +23,24 @@ export const registerUser = createAsyncThunk(
         return {user: data, token};
     }
 )
-//
-// export const fetchUser = createAsyncThunk(
-//     'user/fetch',
-//     //todo endpoint /account/login
-// )
+export const fetchUser = createAsyncThunk(
+    `user/login`,
+    async ({login, password}: UserLogin) => {
+        const token = createToken(login, password);
+        const response = await fetch(`${base_url}/account/login`, {
+            method: "POST",
+            headers: {
+                "Authorization": `${token}`,
+            },
+        });
+        if (response.status === 401) {
+            throw new Error(`Invalid credentials`);
+        }
+        if (!response.ok) {
+            throw new Error(`Something went wrong`);
+        }
+        const data = await response.json();
+        return {user: data, token};
+    }
+)
+
