@@ -26,8 +26,7 @@ export const registerUser = createAsyncThunk(
 )
 export const fetchUser = createAsyncThunk(
     `user/login`,
-    async ({login, password}: Pick<UserRegister, 'login' | 'password'>) => {
-        const token = createToken(login, password);
+    async (token: string) => {
         const response = await fetch(`${base_url}/account/login`, {
             method: "POST",
             headers: {
