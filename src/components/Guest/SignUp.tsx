@@ -13,7 +13,7 @@ const SignUp = () => {
 
     const handleClickSignUp = () => {
         dispatch(registerUser({login, password, firstName, lastName}))
-        alert(`Sign up ${login} ${password} ${firstName} ${lastName}`);
+
     }
 
     const handleClickClear = () => {
@@ -41,11 +41,11 @@ const SignUp = () => {
                        value={firstName}/>
             </label>
             <label>Last Name:
-                <input type="password"
+                <input type="text"
                        onChange={e => setLastName(e.target.value)}
                        value={lastName}/>
             </label>
-            <button onClick={handleClickSignUp}>Sign in</button>
+            <button onClick={handleClickSignUp}>Sign up</button>
             <button onClick={handleClickClear}>Clear</button>
         </>
     );

@@ -30,7 +30,7 @@ const EditProfile = ({close}: EditProfileProps) => {
                        value={firstName}/>
             </label>
             <label>Last Name:
-                <input type="password"
+                <input type="text"
                        onChange={e => setLastName(e.target.value)}
                        value={lastName}/>
             </label>
