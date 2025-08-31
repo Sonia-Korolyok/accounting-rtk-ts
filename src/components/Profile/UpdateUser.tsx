@@ -13,7 +13,7 @@ const UpdateUser = () => {
             return <ChangePassword close={() => setUpdateMode(UpdateMode.CHANGE_PASSWORD)}/>
         default:
             return <div>
-                <button onClick={() => setUpdateMode(UpdateMode.EDIT_PROFILE)}>Update Profile</button>
+                <button onClick={() => setUpdateMode(UpdateMode.EDIT_PROFILE)}>Edit Profile</button>
                 <button onClick={() => setUpdateMode(UpdateMode.CHANGE_PASSWORD)}>Change Password</button>
             </div>
     }

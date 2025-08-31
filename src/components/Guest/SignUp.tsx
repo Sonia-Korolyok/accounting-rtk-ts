@@ -1,4 +1,6 @@
 import {useState} from "react";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {registerUser} from "../../features/api/accountApi.ts";
 
 
 const SignUp = () => {
@@ -6,11 +8,12 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const dispatch = useAppDispatch();
 
 
     const handleClickSignUp = () => {
-        //todo sign up
-        alert(`Sign up ${login} ${password} ${firstName} ${lastName}`);
+        dispatch(registerUser({login, password, firstName, lastName}))
+
     }
 
     const handleClickClear = () => {
@@ -38,11 +41,11 @@ const SignUp = () => {
                        value={firstName}/>
             </label>
             <label>Last Name:
-                <input type="password"
+                <input type="text"
                        onChange={e => setLastName(e.target.value)}
                        value={lastName}/>
             </label>
-            <button onClick={handleClickSignUp}>Sign in</button>
+            <button onClick={handleClickSignUp}>Sign up</button>
             <button onClick={handleClickClear}>Clear</button>
         </>
     );
