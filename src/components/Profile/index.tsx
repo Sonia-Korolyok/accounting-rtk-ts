@@ -1,22 +1,30 @@
 import ProfileData from "./ProfileData.tsx";
 import UpdateUser from "./UpdateUser.tsx";
-import {useAppDispatch} from "../../app/hooks.ts";
-import {clearUser} from "../../features/user/userSlice.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
 import {clearToken} from "../../features/token/tokenSlice.ts";
+import {useFetchUserQuery} from "../../features/api/accountApi.ts";
 
 const Profile = () => {
     const dispatch = useAppDispatch();
+    const token = useAppSelector(state => state.token);
+    const {data, isLoading} = useFetchUserQuery(token);
+
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+    if (!data) {
+        return <p>No Data</p>;
+    }
 
     const handleClickLogOut = () => {
-        dispatch(clearUser())
         dispatch(clearToken())
     }
 
     return (
         <div>
-            <ProfileData/>
+            <ProfileData data={data}/>
             <button onClick={handleClickLogOut}>Logout</button>
-            <UpdateUser/>
+            <UpdateUser login={data.login}/>
         </div>
     );
 };

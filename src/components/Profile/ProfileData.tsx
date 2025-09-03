@@ -1,14 +1,19 @@
-import {useAppSelector} from "../../app/hooks.ts";
+import type {UserProfile} from "../../utils/types";
 
-const ProfileData = () => {
-    const {firstName, lastName, login, roles} = useAppSelector(state => state.user);
+interface Props {
+    data: UserProfile;
+}
+
+const ProfileData = ({data}:Props) => {
+
+
     return (
         <>
-            <p>First Name: {firstName}</p>
-            <p>Last Name: {lastName}</p>
-            <p>Login: {login}</p>
+            <p>First Name: {data.firstName}</p>
+            <p>Last Name: {data.lastName}</p>
+            <p>Login: {data.login}</p>
             <ul>
-                {roles.map(role => <li key={role}>{role}</li>)}
+                {data.roles.map(role => <li key={role}>{role}</li>)}
             </ul>
         </>
     );

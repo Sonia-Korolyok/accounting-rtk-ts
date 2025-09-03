@@ -1,19 +1,25 @@
 import {useState} from "react";
-import {useAppDispatch} from "../../app/hooks.ts";
-import {updateUser} from "../../features/api/accountApi.ts";
+import {useUpdateUserMutation} from "../../features/api/accountApi.ts";
+
 
 export interface EditProfileProps {
-    close: () => void;
+    close: () => void,
+    login: string
 }
 
-const EditProfile = ({close}: EditProfileProps) => {
+const EditProfile = ({close, login}: EditProfileProps) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
+    const [updateUser] = useUpdateUserMutation();
 
 
-    const handleClickSave = () => {
-       dispatch(updateUser({firstName, lastName}));
+    const handleClickSave = async () => {
+        try {
+            await updateUser({user: {firstName, lastName}, login}).unwrap();
+        }catch (e) {
+            console.log('error updating user', e);
+        }
         close();
     }
 
